@@ -14,7 +14,7 @@ contract Payroll{
             revert();
          }
          //需要结清之前的salary
-         uint sum = (now - lastPayDay) / 30 * salary;
+         uint sum =  salary * (now - lastPayDay) / payDuration ;
          emp.transfer(sum);
          emp = address_emp;
          salary = n * 1 ether;
