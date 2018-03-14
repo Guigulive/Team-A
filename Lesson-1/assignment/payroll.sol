@@ -5,7 +5,7 @@ contract Payroll{
     uint lastPayday;
     address contractOwner;
     address employee;
-    uint employeeSalary;
+    uint  employeeSalary;
     
     /**
      *  创建合约的时候，需要充一笔钱作为启动资金，并且指定员工收款地址和薪水数量 
@@ -72,5 +72,15 @@ contract Payroll{
         employeeSalary = newSalary * 1 ether;
         //lastPay
         lastPayday = now;
+    }
+
+    /**
+     * 更新当前员工薪水用于加薪:
+     *  1- 调用者必须是合约拥有者地址
+     *  2- 下次领钱的时候用新的薪水
+     **/  
+    function updateCurrentEmployeeSalary(uint newSalary){
+        require(msg.sender == contractOwner);
+        employeeSalary = newSalary * 1 ether;
     }
 }
