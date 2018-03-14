@@ -1,16 +1,16 @@
-/*作业请提交在这个目录下*/
+//atom和remix检查有些地方不一样
 pragma solidity ^0.4.14;
 
 contract Payroll{
-    uint salary;
-    address owner = this;
+    uint salary =1 ether;
+    address owner;
     address emp;
     uint constant payDuration = 10 seconds;
     uint lastPayDay = now;
 
 
-     function setAddressAndSalary (address address_emp,uint n)public{
-         if(msg.sender != owner || address_emp==0x0){
+     function setAddressAndSalary (address address_emp,uint n){
+         if(msg.sender != owner && address_emp==0x0){
             revert();
          }
          //需要结清之前的salary
@@ -20,17 +20,21 @@ contract Payroll{
          salary = n * 1 ether;
 
     }
-
-   function addFund() public payable returns (uint){
-        return  owner.balance;
+    function Payroll(){
+        
+        owner = msg.sender;
     }
 
-   function calculateRunway()public view returns (uint){
-        return owner.balance / salary;
+   function addFund() payable returns (uint){
+        return  this.balance;
+    }
+
+   function calculateRunway() public  returns (uint){
+        return this.balance / salary;
     }
 
 
-   function hasEnoughFound()public view  returns(bool){
+   function hasEnoughFound()public   returns(bool){
         return calculateRunway() > 0;
     }
    function getPaid()public {
