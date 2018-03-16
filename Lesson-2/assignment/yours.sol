@@ -3,16 +3,17 @@ pragma solidity ^0.4.14;
 
 contract Payroll{
     
+    //定义变量
     address owner;
     Employee[] employees;
     uint constant payDuration = 10 seconds;
     
-    //初始化
+    //初始化构造
     function Payroll(){
         
-         owner= msg.sender;
+        owner= msg.sender;
     }
-    //
+    //对象
     struct Employee {
         
         address id;
@@ -20,6 +21,7 @@ contract Payroll{
         uint lastPayDay;
     }
     
+    //根据地址获得雇员
     function _getEmployee(address empId)private returns (Employee,uint){
         
         for(uint i = 0; i<employees.length; i++){
@@ -31,6 +33,7 @@ contract Payroll{
         }        
     }
     
+    //清算工资
     function _partialPay(Employee emp,uint salary) private{
         
           uint sum =  emp.salary * (now - emp.lastPayDay) / payDuration ;
@@ -38,6 +41,7 @@ contract Payroll{
         
     }
     
+    //添加员工
     function addEmployee(address empId,uint s){
         require(msg.sender == owner);
         var(employee,index) = _getEmployee(empId);
@@ -48,21 +52,23 @@ contract Payroll{
         
     }
     
+    //移除员工
     function removeEmployee(address empId) public{
         require(msg.sender == owner);
         var(employee,index)  = _getEmployee(empId);
 
-        //tips :check
+        //注意这里的校验
         assert(employee.id != 0x0);
         _partialPay(employee,employee.salary);
         
-        //delete
+        //移除员工
         delete(employees[index]);
         employees[index] =employees[employees.length -1];
         employees.length-=1;
         
     }
   
+    //更新员工信息
     function updateEmplpyee (address empId,uint n){
         
         require(msg.sender == owner);
@@ -77,10 +83,12 @@ contract Payroll{
         employees[index].salary = n * 1 ether;
     }
 
+    //雇主添加工资余额
    function addFund() payable returns (uint){
         return  this.balance;
     }
 
+    //计算能支付多少次
    function calculateRunway() public  returns (uint){
        uint sumBalance = 0;
         for(uint i = 0; i<employees.length; i++){
@@ -90,10 +98,12 @@ contract Payroll{
         return this.balance / sumBalance;
     }
 
-
+    //是否足够支付下次工资
    function hasEnoughFound()public returns(bool){
         return calculateRunway() > 0;
     }
+
+    //支付公资
    function getPaid()public {
 
         var(employee,index) = _getEmployee(msg.sender);
