@@ -1,42 +1,32 @@
 1.
-gas	3000000 gas
-transaction cost	105198 gas
-execution cost	82326 gas
+transaction cost	22950 gas
+execution cost	1678 gas
 2.
-gas	3000000 gas
-transaction cost	91039 gas
-execution cost	68167 gas
+transaction cost	23731 gas
+execution cost	2459 gas
 3.
-gas	3000000 gas
-transaction cost	91880 gas
-execution cost	69008 gas
+transaction cost	24512 gas
+execution cost	3240 gas
 4.
-gas	3000000 gas
-transaction cost	92721 gas
-execution cost	69849 gas
+transaction cost	25293 gas
+execution cost	4021 gas
 5.
-gas	3000000 gas
-transaction cost	93562 gas
-execution cost	70690 gas
+transaction cost	26074 gas
+execution cost	4802 gas
 6.
-gas	3000000 gas
-transaction cost	94339 gas
-execution cost	71531 gas
+transaction cost	26855 gas
+execution cost	5583 gas
 7.
-gas	3000000 gas
-transaction cost	95244 gas
-execution cost	72372 gas
+transaction cost	27636 gas
+execution cost	6364 gas
 8.
-gas	3000000 gas
-transaction cost	96085 gas
-execution cost	73213 gas
+transaction cost	28417 gas
+execution cost	7145 gas
 9.
-gas	3000000 gas
-transaction cost	96862 gas
-execution cost	74054 gas
+transaction cost	29198 gas
+execution cost	7926 gas
 10.
-gas	3000000 gas
-transaction cost	97767 gas
-execution cost	74895 gas
+transaction cost	29979 gas
+execution cost	8707 gas
 
-10次gas花费变化，除第一次创建的花费较多之外，第二次起至第十次transaction cost和 execution cost逐次递增。原因应该是成员增多后，导致循环遍历次数增加造成的了
+10次gas花费变化，ransaction cost和 execution cost逐次递增。原因应该是成员增多后，导致循环遍历次数增加造成的了
