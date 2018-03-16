@@ -38,3 +38,5 @@ execution cost	74054 gas
 gas	3000000 gas
 transaction cost	97767 gas
 execution cost	74895 gas
+
+10次gas花费变化，除第一次创建的花费较多之外，第二次起至第十次transaction cost和 execution cost逐次递增。原因应该是成员增多后，导致循环遍历次数增加造成的了
