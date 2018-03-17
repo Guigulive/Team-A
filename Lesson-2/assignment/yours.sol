@@ -8,6 +8,7 @@ pragma solidity ^0.4.14;
    }
 
    uint constant payDuration = 10 seconds;
+   uint totalSalary = 0;
 
    address owner;
    Employee[] employees;
@@ -29,12 +30,12 @@ pragma solidity ^0.4.14;
      }
    }
 
-
    function addEmployee(address employeeId, uint salary) {
      require(msg.sender == owner);
      var (employee, index) = _findEmployee(employeeId);
      assert(employee.id == 0x0);
      employees.push(Employee(employeeId, salary, now));
+     totalSalary = totalSalary + employee.salary;
    }
 
    function removeEmployee(address employeeId) {
@@ -45,7 +46,7 @@ pragma solidity ^0.4.14;
      delete employees[index];
      employees[index] = employees[employees.length - 1];
      employees.length -= 1;
-
+     totalSalary = totalSalary - employee.salary;
    }
 
    function updateEmployee(address employeeId, uint salary) {
@@ -53,9 +54,10 @@ pragma solidity ^0.4.14;
      var (employee, index) = _findEmployee(employeeId);
      assert(employee.id != 0x0);
      _partialPaid(employees[index]);
+     totalSalary = totalSalary - employee.salary;
+     totalSalary = totalSalary + salary;
      employee.salary = salary;
      employee.lastPayday = now;
-
    }
 
    function addFund() payable returns (uint) {
@@ -63,10 +65,6 @@ pragma solidity ^0.4.14;
    }
 
    function calculateRunway() returns (uint) {
-     uint totalSalary = 0;
-     for (uint i = 0; i < employees.length; i++) {
-       totalSalary += employees[i].salary;
-     }
      return this.balance / totalSalary;
    }
 
