@@ -1,4 +1,3 @@
-/*作业请提交在这个目录下*/
 pragma solidity ^0.4.14;
 
 contract Payroll{
@@ -9,17 +8,19 @@ contract Payroll{
         uint lastPayDay;
     }
     
-    Employee[] employees;
-    
     uint constant payDuration = 10 seconds;
     
+    Employee[] employees;
+
     address owner;
+    
+    uint totalSalary;
     
     function Payroll(){
         owner = msg.sender;
     }
     
-    function _findEmployee(address id) private returns(Employee storage, uint){
+    function _findEmployee(address id) private returns(Employee, uint){
         for(uint i = 0; i < employees.length; i++){
             if(employees[i].id == id) {
                 return (employees[i], i);
@@ -38,17 +39,20 @@ contract Payroll{
         var (employee, index) = _findEmployee(id);
         assert(employee.id == 0x0);
         
-        employees.push(Employee(id, salary * 1 ether, now));
+        salary *= 1 ether;
+        totalSalary += salary;
+        employees.push(Employee(id, salary, now));
     }
     
     function removeEmployee(address id){
         require(msg.sender == owner);
         
         var (employee, index) = _findEmployee(id);
-         assert(employee.id != 0x0);
+        assert(employee.id != 0x0);
         
         _partialPaid(employee);
         
+        totalSalary -= employee.salary;
         employees[index] = employees[employees.length - 1];
         employees.length -= 1;
     }
@@ -61,8 +65,10 @@ contract Payroll{
         
         _partialPaid(employee);
         
-        employee.salary = salary * 1 ether;
-        employee.lastPayDay = now;
+        salary *= 1 ether;
+        totalSalary = totalSalary - employee.salary + salary;
+        employees[index].salary = salary;
+        employees[index].lastPayDay = now;
     }
     
     function addFund() payable returns(uint) {
@@ -70,11 +76,6 @@ contract Payroll{
     }    
     
     function calculateRunway() returns(uint) {
-        uint totalSalary = 0;
-        for(uint i = 0; i < employees.length; i++){
-            totalSalary += employees[i].salary;
-        }
-        
         return this.balance / totalSalary;
     }
     
@@ -84,22 +85,14 @@ contract Payroll{
     
     function getPaid() {
         var (employee, index) = _findEmployee(msg.sender);
-         assert(employee.id != 0x0);
+        assert(employee.id != 0x0);
         
         uint nextPayDay = employee.lastPayDay + payDuration;
         
         assert(nextPayDay < now);
         
-        employee.lastPayDay = nextPayDay;
-        employee.id.transfer(employee.salary);
+        employees[index].lastPayDay = nextPayDay;
+        employees[index].id.transfer(employee.salary);
     }
     
 }
-    
-
-
-
-
-
-
-    

@@ -8,3 +8,19 @@
 - 如何优化calculateRunway这个函数来减少gas的消耗？
 提交：智能合约代码，gas变化的记录，calculateRunway函数的优化
 
+gas变化记录
+NO. |  transaction cost |  execution cost 
+---|---|---
+1 | 22971 | 1699
+2 | 23759 | 2487
+3 | 24547 | 3275
+4 | 25335 | 4063
+5 | 26123 | 4851
+6 | 26911 | 5639
+7 | 27699 | 6427
+8 | 28487 | 7215
+9 | 29275 | 8003
+10 | 30063 | 8791
+
+
+calculateRunway的优化是，不再每次都重复计算totalSalary，而是在添加、删除和更新Employee信息时同步更新。
