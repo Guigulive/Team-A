@@ -1,8 +1,10 @@
+/*作业请提交在这个目录下*/
 pragma solidity ^0.4.14;
 
 contract Payroll{
     uint constant payDuration = 30 days;
     address contractOwner;
+    unit totalSalary = 0;
 
     Employee[] employees;
 
@@ -48,6 +50,7 @@ contract Payroll{
 
        assert(employee.id == 0x0);
        employees.push(Employee(employeeId, salary * 1 ether, now));
+       totalSalary += salary * 1 ether;
     }
 
     /**
@@ -63,6 +66,8 @@ contract Payroll{
        delete employees[index];
        employees[index] = employees[employees.length-1];
        employees.length -= 1;
+       totalSalary -= employee.salary;
+
     }
 
     /**
@@ -74,13 +79,16 @@ contract Payroll{
     function updateEmployee(address newAddress, uint newSalary){
         require(newAddress != address(0));
         require(newAddress != contractOwner);
-  		require(msg.sender == contractOwner);
+  		  require(msg.sender == contractOwner);
         var (employee, index) = _findEmployee(employeeId);
         assert(employee.id != 0x0);
 
-		_partialPaid(employee);
-		employees[index].salary = newSalary * 1 ether;
-		employees[index].lastPayday = now;  
+		    _partialPaid(employee);
+
+		    employees[index].salary = newSalary * 1 ether;
+		    employees[index].lastPayday = now;  
+
+        totalSalary += (employees[index].salary -  employee.salary );
 
     }
     
@@ -102,11 +110,15 @@ contract Payroll{
         return this.balance;
     }
     
+    /**
+     *  当员工个数增加，调用calculateRunway 花费gas 增加，猜测原因为 每次都重新计算totalSalary，每次都进行循环
+     *  修改为定义一个成员变量 totalSalary，在人员变化的时候相应的修改
+     **/
     function calculateRunway() returns (uint){
-    	unit totalSalary = 0;
-    	for(uint i=0; i < employees.length; i++){
-       		totalSalary += employees[i].salary;
-        }
+    	 // uint totalSalary = 0;
+    	 // for(uint i=0; i < employees.length; i++){
+       //		totalSalary += employees[i].salary;
+       // }
         return this.balance / totalSalary;
     }
     
