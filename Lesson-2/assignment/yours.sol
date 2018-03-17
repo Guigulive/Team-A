@@ -35,7 +35,7 @@ pragma solidity ^0.4.14;
      var (employee, index) = _findEmployee(employeeId);
      assert(employee.id == 0x0);
      employees.push(Employee(employeeId, salary, now));
-     totalSalary = totalSalary + employee.salary;
+     totalSalary = totalSalary + salary;
    }
 
    function removeEmployee(address employeeId) {
