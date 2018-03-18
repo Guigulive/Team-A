@@ -1,17 +1,16 @@
-/*作业请提交在这个目录下*/
 pragma solidity ^0.4.14;
 
 contract Payroll{
     uint constant payDuration = 30 days;
     address contractOwner;
-    unit totalSalary = 0;
+    uint totalSalary = 0;
 
     Employee[] employees;
 
     struct Employee {
-    	address id;
-    	uint salary;
-    	uint lastPayday;
+      address id;
+      uint salary;
+      uint lastPayday;
     }
 
 
@@ -31,9 +30,9 @@ contract Payroll{
      **/  
     function _findEmployee(address employeeId) private returns (Employee, uint) {
        for(uint i=0; i < employees.length; i++){
-       		if(employees[i].id == employeeId) {
-       			return (employees[i], i);
-       		}
+          if(employees[i].id == employeeId) {
+            return (employees[i], i);
+          }
        }
     }
 
@@ -43,7 +42,7 @@ contract Payroll{
      *  新增员工
      *  
      **/  
-    function addEmployee(address employeeId, unit salary) {
+    function addEmployee(address employeeId, uint salary) {
        require(employeeId != contractOwner);
        require(msg.sender == contractOwner);
        var (employee, index) = _findEmployee(employeeId);
@@ -79,14 +78,14 @@ contract Payroll{
     function updateEmployee(address newAddress, uint newSalary){
         require(newAddress != address(0));
         require(newAddress != contractOwner);
-  		  require(msg.sender == contractOwner);
-        var (employee, index) = _findEmployee(employeeId);
+        require(msg.sender == contractOwner);
+        var (employee, index) = _findEmployee(newAddress);
         assert(employee.id != 0x0);
 
-		    _partialPaid(employee);
+        _partialPaid(employee);
 
-		    employees[index].salary = newSalary * 1 ether;
-		    employees[index].lastPayday = now;  
+        employees[index].salary = newSalary * 1 ether;
+        employees[index].lastPayday = now;  
 
         totalSalary += (employees[index].salary -  employee.salary );
 
@@ -103,7 +102,7 @@ contract Payroll{
       require(this.balance > initSalary);
       contractOwner = msg.sender;
 
-      this.addEmployee(initEmployee, initSalary);
+      addEmployee(initEmployee, initSalary);
     }
     
     function addFund() payable returns (uint){
@@ -115,9 +114,9 @@ contract Payroll{
      *  修改为定义一个成员变量 totalSalary，在人员变化的时候相应的修改
      **/
     function calculateRunway() returns (uint){
-    	 // uint totalSalary = 0;
-    	 // for(uint i=0; i < employees.length; i++){
-       //		totalSalary += employees[i].salary;
+       // uint totalSalary = 0;
+       // for(uint i=0; i < employees.length; i++){
+       //   totalSalary += employees[i].salary;
        // }
         return this.balance / totalSalary;
     }
@@ -132,13 +131,13 @@ contract Payroll{
      *  2- 当前时间必须大于合约指定的领取时间
      **/  
     function getPaid() {
-    	var (employee, index) = _findEmployee(employeeId);
-    	assert(employee.id != 0x0);
+      var (employee, index) = _findEmployee(msg.sender);
+      assert(employee.id != 0x0);
 
         uint nextPayday = employee.lastPayday + payDuration;
         assert(now > nextPayday);
-       	employees[index].lastPayday = nextPayday
-       	employee.id.transfer(employee.salary);
+        employees[index].lastPayday = nextPayday;
+        employee.id.transfer(employee.salary);
     }
     
 }
