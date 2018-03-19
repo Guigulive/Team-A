@@ -1,0 +1,17 @@
+address	                                    execution cost
+0x14723a09acff6d2a60dcdf7aa4aff308fddc160c	1694
+0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db	2475
+0x583031d1113ad414f02576bd6afabfb302140225	3256
+0xdd870fa1b7c4700f2bd7f44238821c26f7392148	4037
+0xc3b6f658e2b44d52ecca2917343b0764158a30fb	4818
+0x9322a2b951baee890386e4ada938cd6638778846	5599
+0x93055069beceb25cb4b3079de4c363919f785940	6380
+0x5ab35bb1bf5043fe2929a5878ab4423bbae3340e	7161
+0x6dbc70a73dc0c25edd41df3bb73e6459c86e2e7c	7942
+0xed0005aac35cc1774bbaf032a5120c257557acb4	8723
+
+加入十个员工，每个员工的薪水都是1ETH 每次加入一个员工后调用calculateRunway这个函数，并且记录消耗的gas是多少？Gas变化么？如果有 为什么？
+gas消耗逐渐增加，因为Employee数组变大，for循环次数增多，导致消耗资源更多。
+
+如何优化calculateRunway这个函数来减少gas的消耗？ 提交：智能合约代码，gas变化的记录，calculateRunway函数的优化
+用全局变量记录总薪水
