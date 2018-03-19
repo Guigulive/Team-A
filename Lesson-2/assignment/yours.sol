@@ -56,8 +56,8 @@ pragma solidity ^0.4.14;
      _partialPaid(employees[index]);
      totalSalary = totalSalary - employee.salary;
      totalSalary = totalSalary + salary;
-     employee.salary = salary;
-     employee.lastPayday = now;
+     employees[index].salary = salary;
+     employees[index].lastPayday = now;
    }
 
    function addFund() payable returns (uint) {
