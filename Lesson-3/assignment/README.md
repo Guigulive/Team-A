@@ -12,3 +12,10 @@
 - contract K1 is A, B
 - contract K2 is A, C
 - contract Z is K1, K2
+
+A = [A, 0]
+B = [B, 0]
+C = [C, 0]
+K1 = [K1,A,B, 0]
+K2 = [K2,A,C, 0]
+Z = [Z, K1, K2, A, B, C, 0]
