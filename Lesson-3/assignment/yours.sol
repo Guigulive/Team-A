@@ -1,4 +1,4 @@
-/*作业请提交在这个目录下*/
+
 pragma solidity ^0.4.14;
 
 import './SafeMath.sol';
@@ -6,7 +6,7 @@ import './Owner.sol';
 
 contract Payroll is Ownable{
     
-    using SafeMath for unit;
+    using SafeMath for uint;
 
     struct Employee{
         address id;
@@ -18,29 +18,21 @@ contract Payroll is Ownable{
     
     mapping (address => Employee) public employees;
     
-    address owner;
-    
     uint totalSalary;
     
     modifier employeeExist(address id){
-        Employee employee = employees[id];
+        var employee = employees[id];
         assert(employee.id != 0x0);
         _;
     }
 
-    modifier isEmployee(){
-        var employee = employees[msg.sender];
-        assert(employee.id != 0x0);
-        _;
-    }
-    
     function _partialPaid(Employee employee) private {
         uint payment = employee.salary.mul(now.sub(employee.lastPayDay)).div(payDuration);
         employee.id.transfer(payment);
     }
     
     function addEmployee(address id, uint salary) onlyOwner {
-        Employee employee = employees[id];
+        var employee = employees[id];
         assert(employee.id == 0x0);
         
         salary *= 1 ether;
@@ -49,6 +41,7 @@ contract Payroll is Ownable{
     }
     
     function removeEmployee(address id) onlyOwner employeeExist(id){
+        var employee = employees[id];
         _partialPaid(employee);
         
         totalSalary = totalSalary.sub(employee.salary);
@@ -56,7 +49,7 @@ contract Payroll is Ownable{
     }
     
     function update(address id, uint salary) onlyOwner employeeExist(id){
-        Employee employee = employees[id];
+        var employee = employees[id];
         
         _partialPaid(employee);
         
@@ -66,11 +59,12 @@ contract Payroll is Ownable{
         employee.lastPayDay = now;
     }
     
-    function changePaymentAddress(address newAddress) isEmployee {
+    function changePaymentAddress(address newAddress) employeeExist(msg.sender) {
         var employee = employees[msg.sender];
-        employee.id = newAddress;
-        delete employee[msg.sender];
-        employee[newAddress] = employee;
+
+        var newEmployee = Employee(newAddress, employee.salary, employee.lastPayDay);
+        delete employees[msg.sender];
+        employees[newAddress] = newEmployee;
     }
     
     function addFund() payable returns(uint) {
@@ -86,7 +80,7 @@ contract Payroll is Ownable{
     }
     
     function getPaid() employeeExist(msg.sender){
-        Employee employee = employees[msg.sender];
+        var employee = employees[msg.sender];
         
         uint nextPayDay = employee.lastPayDay.add(payDuration);
         
