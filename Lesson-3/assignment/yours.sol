@@ -61,10 +61,9 @@ contract Payroll is Ownable{
     
     function changePaymentAddress(address newAddress) employeeExist(msg.sender) {
         var employee = employees[msg.sender];
-
-        var newEmployee = Employee(newAddress, employee.salary, employee.lastPayDay);
+        employee.id = newAddress;
+        employees[newAddress] = employee;
         delete employees[msg.sender];
-        employees[newAddress] = newEmployee;
     }
     
     function addFund() payable returns(uint) {
