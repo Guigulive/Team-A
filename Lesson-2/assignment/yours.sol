@@ -7,7 +7,7 @@ contract Payroll{
     address owner;
     Employee[] employees;
     uint constant payDuration = 10 seconds;
-    
+    uint sumBalance = 0;
     //初始化构造
     function Payroll(){
         
@@ -34,8 +34,8 @@ contract Payroll{
     }
     
     //清算工资
-    function _partialPay(Employee emp,uint salary) private{
-        
+    function _partialPay(Employee emp) private{
+          sumBalance -= emp.salary;
           uint sum =  emp.salary * (now - emp.lastPayDay) / payDuration ;
           emp.id.transfer(sum);
         
@@ -48,6 +48,7 @@ contract Payroll{
         
         //tips :check
         assert(employee.id == 0x0);
+         sumBalance += s * 1 ether;
         employees.push(Employee(empId,s * 1 ether,now));
         
     }
@@ -59,8 +60,8 @@ contract Payroll{
 
         //注意这里的校验
         assert(employee.id != 0x0);
-        _partialPay(employee,employee.salary);
-        
+        _partialPay(employee);
+       
         //移除员工
         delete(employees[index]);
         employees[index] =employees[employees.length -1];
@@ -76,8 +77,9 @@ contract Payroll{
         var(employee,index) =  _getEmployee(empId);
         
         assert(employee.id!= 0x0);
-         _partialPay(employee,employee.salary);
+         _partialPay(employee);
          
+         sumBalance += n * 1 ether;
          //warning!!!!!!!!!!!!!!!!! storage     
         employees[index].lastPayDay = now;
         employees[index].salary = n * 1 ether;
@@ -90,11 +92,8 @@ contract Payroll{
 
     //计算能支付多少次
    function calculateRunway() public  returns (uint){
-       uint sumBalance = 0;
-        for(uint i = 0; i<employees.length; i++){
-           
-           sumBalance += employees[i].salary;
-       }
+     
+        
         return this.balance / sumBalance;
     }
 
@@ -103,7 +102,7 @@ contract Payroll{
         return calculateRunway() > 0;
     }
 
-    //支付公资
+    //支付工资
    function getPaid()public {
 
         var(employee,index) = _getEmployee(msg.sender);

@@ -32,7 +32,7 @@ contract Payroll is Ownable{
         _;
     }
     //清算工资
-    function _partialPay(Employee employee,uint salary) private{
+    function _partialPay(Employee employee) private{
         
           uint sum =  employee.salary * (now - employee.lastPayDay) / payDuration ;
           employee.id.transfer(sum);
@@ -53,7 +53,7 @@ contract Payroll is Ownable{
        // var(index)  = employees[empId]
 
         //注意这里的校验
-        _partialPay(employees[id],employees[id].salary);
+        _partialPay(employees[id]);
         sumSalary -= employees[id].salary;
         //移除员工
         delete(employees[id]);
@@ -65,7 +65,7 @@ contract Payroll is Ownable{
 
        // var(employee,index) =  _getEmployee(empId);
         
-         _partialPay(employees[id],employees[id].salary);
+         _partialPay(employees[id]);
          
          //warning!!!!!!!!!!!!!!!!! storage     
         employees[id].lastPayDay = now;
@@ -77,7 +77,7 @@ contract Payroll is Ownable{
     function changePaymentAddress(address oldAddress,address newAddress)onlyOwner checkEmployee(oldAddress){
         
         employees[oldAddress].id  = newAddress ; 
-        employees[newAddress] = employees[oldAddress];
+        employees[newAddress] = employees[oldAddress];//当我注掉 删除时,发现两个key指向的内存空间是独立存在的
         delete(employees[oldAddress]);
         
     }
