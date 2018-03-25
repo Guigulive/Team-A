@@ -6,7 +6,7 @@ contract Payroll {
     //定义变量
     address owner;
     mapping(address => Employee) public employees;
-    uint constant payDuration = 10 seconds;
+    uint constant payDuration = 100 seconds;
     uint sumSalary;
     
     //初始化构造
@@ -108,5 +108,6 @@ contract Payroll {
         msg.sender.transfer(employees[msg.sender].salary);
 
     }
+
 }
 
