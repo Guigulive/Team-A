@@ -11,3 +11,8 @@ A payroll system developed with React and Solidty for Ethereum Blockchain platfo
 1. Run `truffle compile` in the project directory
 1. `truffle migrate`
 1. `npm run start`
+
+
+## 作业详情
+1. 注释common.js中暂时没有实现的方法
+1. 补充EmployeeList.js中空方法的实现
