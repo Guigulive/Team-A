@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, InputNumber, Button } from 'antd';
+import { Form, InputNumber, Button, message } from 'antd';
 
 import Common from './Common';
 
@@ -9,15 +9,24 @@ class Fund extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {}; // state component
+    this.state = {
+      loading: false
+    }; // state component
   }
 
   handleSubmit = (ev) => {
     ev.preventDefault();
+    this.setState({ loading: true });
     const { payroll, account, web3 } = this.props;
     payroll.addFund({
       from: account,
       value: web3.toWei(this.state.fund)
+    }).then(res => {
+      this.refs.common.checkInfo();
+      this.setState({ loading: false });
+    }).catch(err => {
+      this.setState({ loading: false });
+      message.error(err.message);
     });
   }
 
@@ -25,7 +34,7 @@ class Fund extends Component {
     const { account, payroll, web3 } = this.props;
     return (
       <div>
-        <Common account={account} payroll={payroll} web3={web3} />
+        <Common account={account} payroll={payroll} web3={web3} ref="common"/>
 
         <Form layout="inline" onSubmit={this.handleSubmit}>
           <FormItem>
@@ -39,6 +48,7 @@ class Fund extends Component {
               type="primary"
               htmlType="submit"
               disabled={!this.state.fund}
+              loading={this.state.loading} onClick={this.enterLoading}
             >
               增加资金
             </Button>
