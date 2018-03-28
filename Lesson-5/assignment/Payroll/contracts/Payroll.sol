@@ -56,6 +56,13 @@ contract Payroll is Ownable {
         totalSalary = totalSalary.sub(employee.salary);
         delete employees[employeeId];
         totalEmployee = totalEmployee.sub(1);
+
+        for(uint i = 0; i < employeeList.length; i++){
+            if(employeeList[i] == employeeId) {
+                delete employeeList[i];
+                employeeList[i] = employeeList[employeeList.length - 1];
+            }
+        }
     }
 
     function updateEmployee(address employeeId, uint salary) onlyOwner employeeExit(employeeId) {
