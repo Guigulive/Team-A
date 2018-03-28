@@ -1,0 +1,18 @@
+{
+  "name": "payroll",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ganache-cli": "^6.1.0",
+    "mocha": "^5.0.4",
+    "solc": "^0.4.21",
+    "web3": "^1.0.0-beta.26"
+  }
+}
