@@ -1,0 +1,32 @@
+1.
+transaction cost	22950 gas
+execution cost	1678 gas
+2.
+transaction cost	23731 gas
+execution cost	2459 gas
+3.
+transaction cost	24512 gas
+execution cost	3240 gas
+4.
+transaction cost	25293 gas
+execution cost	4021 gas
+5.
+transaction cost	26074 gas
+execution cost	4802 gas
+6.
+transaction cost	26855 gas
+execution cost	5583 gas
+7.
+transaction cost	27636 gas
+execution cost	6364 gas
+8.
+transaction cost	28417 gas
+execution cost	7145 gas
+9.
+transaction cost	29198 gas
+execution cost	7926 gas
+10.
+transaction cost	29979 gas
+execution cost	8707 gas
+
+10次gas花费变化，ransaction cost和 execution cost逐次递增。原因应该是成员增多后，导致循环遍历次数增加造成的了
