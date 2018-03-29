@@ -33,7 +33,7 @@ class Employer extends Component {
   }
 
   renderContent = () => {
-    const { account, payroll, web3 } = this.props;
+    const { account, payroll, web3, instance } = this.props;
     const { mode, owner } = this.state;
 
     if (owner !== account) { // auth verify
@@ -44,7 +44,7 @@ class Employer extends Component {
       case 'fund':
         return <Fund account={account} payroll={payroll} web3={web3} />
       case 'employees':
-        return <EmployeeList account={account} payroll={payroll} web3={web3} />
+        return <EmployeeList account={account} payroll={payroll} web3={web3} instance={instance} />
     }
   }
 

@@ -70,10 +70,16 @@ class App extends Component {
     })
   }
 
-  onSelectTab = ({key}) => {
+  onSelectTab = ({key,account}) => {
     this.setState({
       mode: key
     });
+
+    if(account){
+      this.setState({
+        account: account,
+      });
+    }
   }
 
   renderContent = () => {
@@ -85,7 +91,7 @@ class App extends Component {
 
     switch(mode) {
       case 'employer':
-        return <Employer account={account} payroll={payroll} web3={web3} />
+        return <Employer account={account} payroll={payroll} web3={web3} instance={this}/>
       case 'employee':
         return <Employee account={account} payroll={payroll} web3={web3} />
       default:

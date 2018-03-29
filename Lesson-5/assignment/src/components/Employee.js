@@ -6,7 +6,7 @@ import Common from './Common';
 class Employer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {  loading: false};
   }
 
   componentDidMount() {
@@ -32,11 +32,17 @@ class Employer extends Component {
   }
 
   getPaid = () => {
+    this.setState({ loading: true });
     const { payroll, account } = this.props;
     payroll.getPaid({
       from: account,
-    }).then((result) => {
-      message.info('You have been paid.');
+    }).then(res => {
+      this.checkEmployee();
+      this.setState({ loading: false });
+
+    }).catch(err => {
+      this.setState({ loading: false });
+      message.error(err.message);
     });
   }
 
@@ -65,6 +71,7 @@ class Employer extends Component {
           type="primary"
           icon="bank"
           onClick={this.getPaid}
+          loading={this.state.loading} 
         >
           获得酬劳
         </Button>
@@ -77,7 +84,7 @@ class Employer extends Component {
 
     return (
       <Layout style={{ padding: '0 24px', background: '#fff' }}>
-        <Common account={account} payroll={payroll} web3={web3} />
+        <Common account={account} payroll={payroll} web3={web3}/>
         <h2>个人信息</h2>
         {this.renderContent()}
       </Layout >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Modal, Form, InputNumber, Input, message, Popconfirm } from 'antd';
+import {  Row, Col, Table, Button, Modal, Form, InputNumber, Input, message, Popconfirm } from 'antd';
 
 import EditableCell from './EditableCell';
 
@@ -33,6 +33,7 @@ class EmployeeList extends Component {
       showModal: false
     };
 
+    
     columns[1].render = (text, record) => (
       <EditableCell
         value={text}
@@ -41,9 +42,25 @@ class EmployeeList extends Component {
     );
 
     columns[3].render = (text, record) => (
-      <Popconfirm title="你确定删除吗?" onConfirm={() => this.removeEmployee(record.address)}>
+      <Row gutter={16}>
+        <Col className="gutter-row" span={10}>
+        <Popconfirm title="你确定删除吗?" onConfirm={() => this.removeEmployee(record.address)}>
         <a href="#">Delete</a>
       </Popconfirm>
+        </Col>
+
+        <Col className="gutter-row" span={10}>
+        <Button
+          type="primary"
+          onClick={(ev) => this.changeToEmp(record.address, ev)}
+        >
+          切换为员工
+        </Button>
+        
+        </Col>
+
+      </Row>
+      
     );
   }
 
@@ -90,6 +107,11 @@ class EmployeeList extends Component {
       });
   }
 
+  changeToEmp = (id,ev) => {
+    ev.preventDefault();
+    const { payroll, account, web3,instance } = this.props;
+    instance.onSelectTab({key:'employee',account:id});
+  }
   addEmployee = () => {
     const { payroll, account, web3 } = this.props;
     const { address, salary, employees } = this.state;

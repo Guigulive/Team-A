@@ -17,3 +17,5 @@ A payroll system developed with React and Solidty for Ethereum Blockchain platfo
 1. 注释common.js中暂时没有实现的方法
 1. 补充EmployeeList.js中空方法的实现
 1. 增加合约金额不需要刷新页面的功能
+1. 增加切换为员工功能
+1. 增加员工getpaid的时候不用刷新页面显示金额

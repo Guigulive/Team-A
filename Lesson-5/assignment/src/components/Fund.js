@@ -48,7 +48,7 @@ class Fund extends Component {
               type="primary"
               htmlType="submit"
               disabled={!this.state.fund}
-              loading={this.state.loading} onClick={this.enterLoading}
+              loading={this.state.loading} 
             >
               增加资金
             </Button>

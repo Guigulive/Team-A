@@ -38,11 +38,19 @@ class Common extends Component {
     // this.removeEmployee.stopWatching();
   }
 
-  checkInfo = () => {
+  checkInfo = (empAccount) => {
     const { payroll, account, web3 } = this.props;
-    payroll.checkInfo.call({
-      from: account,
-    }).then((result) => {
+    let promise;
+    if(empAccount){
+      promise=payroll.checkInfo.call({
+        from: empAccount,
+      })
+    }else{
+      promise=payroll.checkInfo.call({
+        from: account,
+      })
+    }
+    promise.then((result) => {
       this.setState({
         balance: web3.fromWei(result[0].toNumber()),
         runway: result[1].toNumber(),
