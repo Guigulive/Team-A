@@ -1,0 +1,150 @@
+
+transact to Payroll.addEmployee pending ... 
+[vm] from:0xca3...a733c, to:Payroll.addEmployee(address,uint256) 0x0dc...97caf, value:0 wei, data:0xe7f...00002, 0 logs, hash:0x5c0...88ea0
+Details
+Debug
+ status 	0x1 Transaction mined and execution succeed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.addEmployee(address,uint256) 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ gas 	3000000 gas
+        
+ transaction cost 	89755 gas 
+ execution cost 	66883 gas 
+ hash 	0x5c03be94071cc44fb9a722a35525951b8dbe4755ddcc1d0e22b0c69050188ea0
+ input 	0xe7fd9a13000000000000000000000000ca35b7d915458ef540ade6068dfe2f44e8fa733f0000000000000000000000000000000000000000000000000000000000000002
+ decoded input 	{
+	"address employeeId": "0xca35b7d915458ef540ade6068dfe2f44e8fa733f",
+	"uint256 salary": "2"
+}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+        
+transact to Payroll.addEmployee pending ... 
+[vm] from:0xca3...a733c, to:Payroll.addEmployee(address,uint256) 0x0dc...97caf, value:0 wei, data:0xe7f...00003, 0 logs, hash:0x553...72fad
+Details
+Debug
+ status 	0x1 Transaction mined and execution succeed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.addEmployee(address,uint256) 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ gas 	3000000 gas
+        
+ transaction cost 	89755 gas 
+ execution cost 	66883 gas 
+ hash 	0x553398173d598589337fc990453cda7f351829785c12eb367658283c38272fad
+ input 	0xe7fd9a13000000000000000000000000ca35b7d915458ef540ade6068dfe2f44e8fa733e0000000000000000000000000000000000000000000000000000000000000003
+ decoded input 	{
+	"address employeeId": "0xca35b7d915458ef540ade6068dfe2f44e8fa733e",
+	"uint256 salary": "3"
+}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+        
+transact to Payroll.addFund pending ... 
+[vm] from:0xca3...a733c, to:Payroll.addFund() 0x0dc...97caf, value:0 wei, data:0xa2f...09dfa, 0 logs, hash:0x47f...50702
+Details
+Debug
+transact to Payroll.calculateRunway pending ... 
+[vm] from:0xca3...a733c, to:Payroll.calculateRunway() 0x0dc...97caf, value:0 wei, data:0x4ec...19512, 0 logs, hash:0x5a6...60f40
+Details
+Debug
+ status 	0x1 Transaction mined and execution succeed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.calculateRunway() 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ gas 	3000000 gas
+        
+ transaction cost 	22432 gas 
+ execution cost 	1160 gas 
+ hash 	0x5a69ee59e701ca2983590fa3861f582bcac33bf5399b25f367a9dbb7fcc60f40
+ input 	0x4ec19512
+ decoded input 	{}
+ decoded output 	{
+	"0": "uint256: 0"
+}
+ logs 	[]
+ value 	0 wei
+        
+transact to Payroll.changePaymentAddress pending ... 
+[vm] from:0xca3...a733c, to:Payroll.changePaymentAddress(address) 0x0dc...97caf, value:0 wei, data:0x712...a733d, 0 logs, hash:0xa93...83440
+Details
+Debug
+ status 	0x0 Transaction mined but execution failed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.changePaymentAddress(address) 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ gas 	3000000 gas
+        
+ transaction cost 	3000000 gas 
+ execution cost 	2977320 gas 
+ hash 	0xa93721b85c9b6b24f80d0882e86795ffe1d2e9b6024c158554dc9db512b83440
+ input 	0x7124d613000000000000000000000000ca35b7d915458ef540ade6068dfe2f44e8fa733d
+ decoded input 	{
+	"address newAddress": "0xca35b7d915458ef540ade6068dfe2f44e8fa733d"
+}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+        
+transact to Payroll.changePaymentAddress errored: VM error: invalid opcode.
+invalid opcode	
+	The execution might have thrown.
+	Debug the transaction to get more information. 
+transact to Payroll.getPaid pending ... 
+[vm] from:0xca3...a733c, to:Payroll.getPaid() 0x0dc...97caf, value:0 wei, data:0xcf4...1d6f8, 0 logs, hash:0x6ac...bff2b
+Details
+Debug
+ status 	0x0 Transaction mined but execution failed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.getPaid() 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ gas 	3000000 gas
+        
+ transaction cost 	3000000 gas 
+ execution cost 	2978728 gas 
+ hash 	0x6ac4e8a1c0d4c01a44ecb81b4994d523cba6ef461963cc22241d0f19b2abff2b
+ input 	0xcf41d6f8
+ decoded input 	{}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+        
+transact to Payroll.getPaid errored: VM error: invalid opcode.
+invalid opcode	
+	The execution might have thrown.
+	Debug the transaction to get more information. 
+transact to Payroll.removeEmployee pending ... 
+[vm] from:0xca3...a733c, to:Payroll.removeEmployee(address) 0x0dc...97caf, value:0 wei, data:0xd10...a733d, 0 logs, hash:0xc52...fb4e6
+Details
+Debug
+transact to Payroll.removeEmployee errored: VM error: revert.
+revert	The transaction has been reverted to the initial state.
+Note: The constructor should be payable if you send value.	Debug the transaction to get more information. 
+transact to Payroll.updateEmployee pending ... 
+[vm] from:0xca3...a733c, to:Payroll.updateEmployee(address,uint256) 0x0dc...97caf, value:0 wei, data:0x5e9...00000, 0 logs, hash:0x805...ee208
+Details
+Debug
+transact to Payroll.updateEmployee errored: VM error: revert.
+revert	The transaction has been reverted to the initial state.
+Note: The constructor should be payable if you send value.	Debug the transaction to get more information. 
+call to Payroll.employees
+[call] from:0xca35b7d915458ef540ade6068dfe2f44e8fa733c, to:Payroll.employees(address), data:d0678...00000, return: 
+Details
+Debug
+{
+	"0": "address: id 0x0000000000000000000000000000000000000000",
+	"1": "uint256: salary 0",
+	"2": "uint256: lastPayday 0"
+}
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	Payroll.employees(address) 0x0dcd2f752394c41875e259e00bb44fd505297caf
+ transaction cost 	22560 gas (Cost only applies when called by a contract)
+ execution cost 	1160 gas (Cost only applies when called by a contract)
+ input 	d06789470000000000000000000000000000000000000000000000000000000000000000
+ decoded input 	{
+	"address ": "0x0000000000000000000000000000000000000000"
+}
+ decoded output 	{
+	"0": "address: id 0x0000000000000000000000000000000000000000",
+	"1": "uint256: salary 0",
+	"2": "uint256: lastPayday 0"
+}
+ logs 	[]
