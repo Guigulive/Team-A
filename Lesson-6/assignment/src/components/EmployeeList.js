@@ -58,10 +58,20 @@ class EmployeeList extends Component {
         this.setState({loading: false});
         return;
       }
-
+      this.getPaidEvent = payroll.GetPaid(updateInfo);
+      this.newEmployeeEvent = payroll.NewEmployee(updateInfo);
+      this.updateEmployeeEvent = payroll.UpdateEmployee(updateInfo);
+      this.removeEmployeeEvent = payroll.RemoveEmployee(updateInfo);
       this.loadEmployees(employeeCount);
     });
 
+  }
+
+  componentWillUnmount() {
+    this.getPaidEvent.stopWatching();
+    this.newEmployeeEvent.stopWatching();
+    this.updateEmployeeEvent.stopWatching();
+    this.removeEmployeeEvent.stopWatching();
   }
 
   loadEmployees(employeeCount) {

@@ -11,6 +11,22 @@ contract Payroll is Ownable {
         uint lastPayday;
     }
 
+    event NewEmployee(
+      address employeeId
+    );
+    event UpdateEmployee(
+      address employeeId
+    );
+    event RemoveEmployee(
+      address employeeId
+    );
+    event NewFund(
+      uint balance
+    );
+    event GetPaid(
+      address employeeId
+    );
+
     uint constant payDuration = 100 seconds;
 
     uint totalSalary;
@@ -31,6 +47,13 @@ contract Payroll is Ownable {
         _;
     }
 
+    modifier employeeNotExist(address employeeId) {
+        require(employeeId != 0x0);
+        Employee storage employee = employees[employeeId];
+        assert(employee.id == 0x0);
+        _;
+    }
+
     function _partialPaid(Employee employee) private {
         uint payment = employee.salary
             .mul(now.sub(employee.lastPayday))
@@ -45,7 +68,7 @@ contract Payroll is Ownable {
         lastPayday = employee.lastPayday;
     }
 
-    function addEmployee(address employeeId, uint salary) onlyOwner {
+    function addEmployee(address employeeId, uint salary) onlyOwner employeeNotExist(employeeId) {
         var employee = employees[employeeId];
         assert(employee.id == 0x0);
 
@@ -53,7 +76,7 @@ contract Payroll is Ownable {
         totalSalary = totalSalary.add(employees[employeeId].salary);
         totalEmployee = totalEmployee.add(1);
         employeeList.push(employeeId);
-        NewEmployee();
+        NewEmployee(employeeId);
     }
 
     function removeEmployee(address employeeId) onlyOwner employeeExit(employeeId) {
@@ -69,7 +92,7 @@ contract Payroll is Ownable {
           }
         }
         totalEmployee = totalEmployee.sub(1);
-        RemoveEmployee();
+        RemoveEmployee(employeeId);
     }
 
     function updateEmployee(address employeeId, uint salary) onlyOwner employeeExit(employeeId) {
@@ -80,7 +103,7 @@ contract Payroll is Ownable {
         employee.salary = salary.mul(1 ether);
         employee.lastPayday = now;
         totalSalary = totalSalary.add(employee.salary);
-        UpdateEmployee();
+        UpdateEmployee(employeeId);
     }
 
     function addFund() payable returns (uint) {
@@ -104,7 +127,7 @@ contract Payroll is Ownable {
 
         employee.lastPayday = nextPayday;
         employee.id.transfer(employee.salary);
-        GetPaid();
+         GetPaid(employee.id);
     }
 
     function checkInfo() returns (uint balance, uint runway, uint employeeCount) {

@@ -42,7 +42,9 @@ class Common extends Component {
         balance: web3.fromWei(result[0].toNumber()),
         runway: result[1].toNumber(),
         employeeCount: result[2].toNumber()
-      })
+      }).catch((error) => {
+      console.log(error);
+      alert("发现异常！！！");
     });
   }
 
